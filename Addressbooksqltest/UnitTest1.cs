@@ -37,6 +37,18 @@ namespace Addressbooksqltest
         //assert
         Assert.AreEqual(expected, actual);
     }
-
+    //UC5-deleting the data in the record 
+    [TestMethod]
+    public void DeletingTheRecordTest()
+    {
+        //assign 
+        int expected = 1;
+        string name = "Bala";
+        int id = 6;
+        //act
+        int actual = addressBookManager.DeletetheRecord(id, name);
+        //assert
+        Assert.AreEqual(expected, actual);
+    }
 }
 
