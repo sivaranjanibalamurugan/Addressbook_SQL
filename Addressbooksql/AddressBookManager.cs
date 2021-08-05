@@ -7,11 +7,11 @@ using System.Data.SqlClient;
 
 namespace Addressbooksql
 {
-    class AddressBookManager
+    public class AddressBookManager
     {
         public static string connectionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=Addressbook_services";
         SqlConnection sqlConnection = new SqlConnection(connectionString);
-
+        
         public int insertIntoTable(ContactDetails details)
         {
             using (sqlConnection)
@@ -31,6 +31,36 @@ namespace Addressbooksql
                     sqlCommand.Parameters.AddWithValue("@zipCode", details.zipCode);
                     sqlCommand.Parameters.AddWithValue("@phoneNumber", details.phoneNumber);
                     sqlCommand.Parameters.AddWithValue("@email", details.emailAddress);
+                    int result = sqlCommand.ExecuteNonQuery();
+                    //if result is greater than 0 then record is inserted
+                    if (result > 0)
+                        return 1;
+                    else
+                        return 0;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+        }
+        public int EditContactDetail(int id, string firstName, long phoneNumber)
+        {
+            using (sqlConnection)
+                try
+                {
+                    //passing query in terms of stored procedure
+                    SqlCommand sqlCommand = new SqlCommand("dbo.EditPhoneNumber", sqlConnection);
+                    //passing command type as stored procedure
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    //adding the values to the stored procedure
+                    sqlCommand.Parameters.AddWithValue("@firstName", firstName);
+                    sqlCommand.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                    sqlCommand.Parameters.AddWithValue("@id", id);
                     int result = sqlCommand.ExecuteNonQuery();
                     //if result is greater than 0 then record is inserted
                     if (result > 0)

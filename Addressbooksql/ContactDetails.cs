@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Addressbooksql
 {
-    class ContactDetails
+    public class ContactDetails
     {
         public int personId { get; set; }
         public string firstName { get; set; }
