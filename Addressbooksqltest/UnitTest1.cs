@@ -50,5 +50,40 @@ namespace Addressbooksqltest
         //assert
         Assert.AreEqual(expected, actual);
     }
+    //UC7-Retriving the data in the record and checking the data
+    [TestMethod]
+    public void RetrivingTheRecordTest()
+    {
+        //assign 
+        string expected = "siva priya ";
+        string actual = "";
+        //assign state and city
+        string state = "Kerala";
+        string city = "madurai";
+        //act
+        List<ContactDetails> list = addressBookManager.RetriveData(state, city, "dbo.RetriveData");
+        foreach (var l in list)
+        {
+            actual += "" + l.firstName + " ";
+        }
+        //assert
+        Assert.AreEqual(expected, actual);
+    }
+    //UC8-Retriving record in sorted order
+    [TestMethod]
+    public void RetrivingTheSortedRecordTest()
+    {
+        //assign 
+        string expected = "Bala karthik Rathna Siva ";
+        string actual = "";
+        //act
+        List<ContactDetails> list = addressBookManager.RetriveDataSorted("dbo.RetriveDataSorted");
+        foreach (var l in list)
+        {
+            actual += "" + l.firstName + " ";
+        }
+        //assert
+        Assert.AreEqual(expected, actual);
+    }
 }
 
