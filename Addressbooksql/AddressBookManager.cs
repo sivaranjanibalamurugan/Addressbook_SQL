@@ -198,38 +198,7 @@ namespace Addressbooksql
             {
                 sqlConnection.Close();
             }
-        }
-        public string CountByType()
-        {
-            //passing the query
-            string Salary = "";
-            using (this.sqlConnection)
-                try
-                {
-                    SqlCommand sqlCommand = new SqlCommand("dbo.CountByType", sqlConnection);
-                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                    //passing command type as stored procedur
-                    this.sqlConnection.Open();
-                    SqlDataReader reader = sqlCommand.ExecuteReader();
-                    //if the query has row 
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            Salary += "" + reader[0] + " ";
-                        }
-                    }
-                    return Salary;
-                }
-                catch (Exception e)
-                {
-                    return e.Message;
-                }
-                finally
-                {
-                    this.sqlConnection.Close();
-                }
-        }
+        }             
          public int insertIntoTableDuplicate(ContactDetails details)
         {
             using (sqlConnection)
@@ -265,6 +234,37 @@ namespace Addressbooksql
                 finally
                 {
                     sqlConnection.Close();
+                }
+        }
+        public string CountByType()
+        {
+            //passing the query
+            string Salary = "";
+            using (this.sqlConnection)
+                try
+                {
+                    SqlCommand sqlCommand = new SqlCommand("dbo.CountByType", sqlConnection);
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    //passing command type as stored procedur
+                    this.sqlConnection.Open();
+                    SqlDataReader reader = sqlCommand.ExecuteReader();
+                    //if the query has row 
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Salary += "" + reader[0] + " ";
+                        }
+                    }
+                    return Salary;
+                }
+                catch (Exception e)
+                {
+                    return e.Message;
+                }
+                finally
+                {
+                    this.sqlConnection.Close();
                 }
         }
 
