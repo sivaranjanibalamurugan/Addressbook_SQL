@@ -230,17 +230,56 @@ namespace Addressbooksql
                     this.sqlConnection.Close();
                 }
         }
+         public int insertIntoTableDuplicate(ContactDetails details)
+        {
+            using (sqlConnection)
+                try
+                {
+                    //passing query in terms of stored procedure
+                    SqlCommand sqlCommand = new SqlCommand("dbo.InsertIntoAddressBookWithName", sqlConnection);
+                    //passing command type as stored procedure
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    //adding the values to the stored procedure
+                    sqlCommand.Parameters.AddWithValue("@firstName", details.firstName);
+                    sqlCommand.Parameters.AddWithValue("@lastName", details.lastName);
+                    sqlCommand.Parameters.AddWithValue("@address", details.address);
+                    sqlCommand.Parameters.AddWithValue("@city", details.city);
+                    sqlCommand.Parameters.AddWithValue("@state", details.state);
+                    sqlCommand.Parameters.AddWithValue("@zipCode", details.zipCode);
+                    sqlCommand.Parameters.AddWithValue("@phoneNumber", details.phoneNumber);
+                    sqlCommand.Parameters.AddWithValue("@email", details.emailAddress);
+                    sqlCommand.Parameters.AddWithValue("@type", details.type);
+                    sqlCommand.Parameters.AddWithValue("@adsName", details.adrsBookName);
+                    int result = sqlCommand.ExecuteNonQuery();
+                    //if result is greater than 0 then record is inserted
+                    if (result > 0)
+                        return 1;
+                    else
+                        return 0;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+        }
 
         public ContactDetails ReadData(ContactDetails contactDetails)
         {
-            contactDetails.firstName = "Hari";
-            contactDetails.lastName = "Bala";
-            contactDetails.address = "cross street";
-            contactDetails.city = "Theni";
+            contactDetails.firstName = "suba";
+            contactDetails.lastName = "shree";
+            contactDetails.address = "northstreet";
+            contactDetails.city = "trichy";
             contactDetails.state = "Tamil Nadu";
-            contactDetails.zipCode = 600024;
-            contactDetails.phoneNumber = 8796541230;
-            contactDetails.emailAddress = "hari@gmail.com";
+            contactDetails.zipCode = 600124;
+            contactDetails.phoneNumber = 8456317892;
+            contactDetails.emailAddress = "suba@gmail.com";
+            contactDetails.type = "Profession";
+            contactDetails.adrsBookName = "Zoho";
             return contactDetails;
         }
     }
