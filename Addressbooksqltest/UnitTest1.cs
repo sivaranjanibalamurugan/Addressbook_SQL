@@ -105,6 +105,14 @@ namespace Addressbooksqltest
             //assert
             Assert.AreEqual(expected, actual);
         }
+        //UC10-Calculate the count of person by type
+        [TestMethod]
+        public void CountByTyeTest()
+        {
+            string expected = "2 3 1 ";
+            string actual = addressBookManager.CountByType("dbo.CountByType");
+            Assert.AreEqual(expected, actual);
+        }
     }
 
 }
