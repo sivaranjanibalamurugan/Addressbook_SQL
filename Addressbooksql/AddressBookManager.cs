@@ -152,7 +152,7 @@ namespace Addressbooksql
             }
         }
         //method to retrive the sorted data
-        public List<ContactDetails> RetriveDataSorted(string procedureName)
+        public List<ContactDetails> RetriveDataSorted()
         {
 
             //initialize the list to store the retrived data
@@ -160,7 +160,7 @@ namespace Addressbooksql
             try
             {
                 //passing query in terms of stored procedure
-                SqlCommand sqlCommand = new SqlCommand(procedureName, sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand("dbo.RetriveData", sqlConnection);
                 //passing command type as stored procedure
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 sqlConnection.Open();
