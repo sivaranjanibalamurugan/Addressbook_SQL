@@ -106,7 +106,7 @@ namespace Addressbooksql
                     sqlConnection.Close();
                 }
         }
-        public List<ContactDetails> RetriveData(string state, string city)
+        public List<ContactDetails> RetriveData(string string1, string string2, string parameter1, string parameter2)
         {
 
             //initialize the list to store the retrived data
@@ -118,8 +118,8 @@ namespace Addressbooksql
                 //passing command type as stored procedure
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 sqlConnection.Open();
-                sqlCommand.Parameters.AddWithValue("@city", city);
-                sqlCommand.Parameters.AddWithValue("@state", state);
+                sqlCommand.Parameters.AddWithValue(parameter1, string1);
+                sqlCommand.Parameters.AddWithValue(parameter2, string2);
                 SqlDataReader reader = sqlCommand.ExecuteReader();
                 //if it has data
                 if (reader.HasRows)
@@ -150,9 +150,13 @@ namespace Addressbooksql
             {
                 sqlConnection.Close();
             }
+
         }
+
+
+
         //method to retrive the sorted data
-        public List<ContactDetails> RetriveDataSorted(string procedureName)
+        public List<ContactDetails> RetriveDataSorted()
         {
 
             //initialize the list to store the retrived data
@@ -160,7 +164,7 @@ namespace Addressbooksql
             try
             {
                 //passing query in terms of stored procedure
-                SqlCommand sqlCommand = new SqlCommand(procedureName, sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand("dbo.RetriveData", sqlConnection);
                 //passing command type as stored procedure
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 sqlConnection.Open();
